@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineBell } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import { IoMdMic } from "react-icons/io";
 import { RiVideoAddLine } from "react-icons/ri";
-import { AiOutlineBell } from "react-icons/ai";
-
-
 import { useNavigate } from "react-router-dom";
+
 function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
-
   const navigate = useNavigate();
 
   const searchQueryHandler = (event) => {
@@ -23,39 +20,60 @@ function Navbar() {
   };
 
   return (
-    <div className="flex justify-between fixed top-0 w-[100%] bg-white px-6 py-2 ">
-      <div className="flex items-center space-x-4  ">
-        <AiOutlineMenu className="text-xl cursor-pointer" />
-       
-      </div>
-      <div className="flex w-[35%] items-center ">
-        <div className="w-[100%] px-4 py-2 border-[1px] border-gray-400 rounded-l-full">
-          <input
-            type="text"
-            placeholder="Search"
-            className=" outline-none"
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyUp={searchQueryHandler}
-            value={searchQuery}
-          />
-        </div>
+    <nav className="flex justify-between fixed top-0 z-10 w-full bg-white px-6 py-2 shadow-sm">
+      <div className="flex items-center space-x-4">
         <button
-          className="px-4 py-2 border-[1px] border-gray-400 bg-gray-100 rounded-r-full"
-          onClick={() => searchQueryHandler("searchButton")}
+          className="text-xl hover:bg-gray-100 p-2 rounded-full transition-colors"
+          aria-label="Menu"
         >
-          <CiSearch size={"24px"} />
+          <AiOutlineMenu />
         </button>
-        <IoMdMic
-          size={"42px"}
-          className="ml-3 border border-gray-600 rounded-full p-2 cursor-pointer hover:bg-gray-200 duration-200"
-        />
       </div>
-      <div className="flex  space-x-5 items-center ">
-        <RiVideoAddLine className="text-2xl" />
-        <AiOutlineBell className="text-2xl" />
-       
+
+      <div className="flex w-[35%] items-center">
+        <div className="w-full flex">
+          <div className="w-full px-4 py-2 border border-gray-400 rounded-l-full focus-within:border-blue-500">
+            <input
+              type="text"
+              placeholder="Search"
+              className="w-full outline-none"
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyUp={searchQueryHandler}
+              value={searchQuery}
+              aria-label="Search input"
+            />
+          </div>
+          <button
+            className="px-6 py-2 border border-l-0 border-gray-400 bg-gray-100 rounded-r-full hover:bg-gray-200 transition-colors"
+            onClick={() => searchQueryHandler("searchButton")}
+            aria-label="Search"
+          >
+            <CiSearch className="text-xl" />
+          </button>
+          <button
+            className="ml-3 p-2 border border-gray-400 rounded-full hover:bg-gray-200 transition-colors"
+            aria-label="Voice search"
+          >
+            <IoMdMic className="text-xl" />
+          </button>
+        </div>
       </div>
-    </div>
+
+      <div className="flex space-x-5 items-center">
+        <button
+          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          aria-label="Create video"
+        >
+          <RiVideoAddLine className="text-2xl" />
+        </button>
+        <button
+          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          aria-label="Notifications"
+        >
+          <AiOutlineBell className="text-2xl" />
+        </button>
+      </div>
+    </nav>
   );
 }
 
